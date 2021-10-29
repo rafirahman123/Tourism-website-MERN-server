@@ -55,6 +55,13 @@ async function run() {
             res.send(result);
         })
 
+        //Get API for Manage All Order
+        app.get('/manageAllOrder', async (req, res) => {
+            const result = await ordersCollection.find({}).toArray();
+            res.send(result);
+            console.log(result);
+        })
+
     }
     finally {
         // await client.close();
