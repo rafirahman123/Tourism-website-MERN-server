@@ -27,7 +27,15 @@ async function run() {
             const cursor = packageCollection.find({});
             const packages = await cursor.toArray();
             res.send(packages);
-        })
+        });
+
+        //Add Tour Package API
+        app.post('/addPackage', async (req, res) => {
+            const package = req.body;
+            console.log(package);
+            const result = await packageCollection.insertOne(package);
+            res.send(result);
+        });
 
     }
     finally {
