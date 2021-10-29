@@ -22,6 +22,8 @@ async function run() {
         const database = client.db('Toursim');
         const packageCollection = database.collection('packages');
 
+        const ordersCollection = database.collection('orders');
+
         // GET API
         app.get('/packages', async (req, res) => {
             const cursor = packageCollection.find({});
@@ -29,11 +31,19 @@ async function run() {
             res.send(packages);
         });
 
-        //Add Tour Package API
+        //Add Tour Package API Post Api
         app.post('/addPackage', async (req, res) => {
             const package = req.body;
             console.log(package);
             const result = await packageCollection.insertOne(package);
+            res.send(result);
+        });
+
+        //ADD Order by POST Method
+        app.post('/orders', async (req, res) => {
+            const orderPackage = req.body;
+            console.log(orderPackage);
+            const result = await ordersCollection.insertOne(orderPackage);
             res.send(result);
         });
 
