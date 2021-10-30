@@ -53,14 +53,25 @@ async function run() {
                 email: req.params.email,
             }).toArray();
             res.send(result);
-        })
+        });
 
         //Get API for Manage All Order
         app.get('/manageAllOrder', async (req, res) => {
             const result = await ordersCollection.find({}).toArray();
             res.send(result);
             console.log(result);
-        })
+        });
+
+        //DELETE an Personal Ordered Event
+        app.delete('orders/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            console.log(id);
+            const result = await ordersCollection.deleteOne(query);
+            console.log("Deleting user with id ", result);
+            res.send(result);
+        });
+
 
     }
     finally {
